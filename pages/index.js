@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import { getFeaturedEvents } from '../helpers/api-util';
 import EventList from '../components/events/EventList';
+import NewsletterRegistration from "../components/input/NewsletterRegistration";
 
 export default function HomePage({ featuredEvents }) {
     return (
@@ -9,6 +10,7 @@ export default function HomePage({ featuredEvents }) {
                 <title>Home Page</title>
                 <meta name="description" content="Find all Sarahs Connor" />
             </Head>
+            <NewsletterRegistration />
             <EventList events={featuredEvents} />
         </div>
     );
