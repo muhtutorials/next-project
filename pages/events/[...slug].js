@@ -4,8 +4,15 @@ import EventList from '../../components/events/EventList';
 import ResultsTitle from '../../components/events/ResultsTitle';
 import Button from '../../components/ui/Button';
 import ErrorAlert from '../../components/ui/ErrorAlert';
+import Head from 'next/head';
 
 export default function FilteredEventsPage({ filteredEvents, date, hasError }) {
+    const pageHeadData = (
+        <Head>
+            <title>Filtered Events</title>
+            <meta name="description" content={`All events for ${date.numYear}/${date.numMonth}`} />
+        </Head>
+    );
     // const router = useRouter();
 
     // // on first render is empty
@@ -23,6 +30,7 @@ export default function FilteredEventsPage({ filteredEvents, date, hasError }) {
     if (hasError) {
         return (
             <>
+                {pageHeadData}
                 <ErrorAlert>
                     <h1>Invalid filter</h1>
                 </ErrorAlert>
@@ -36,6 +44,7 @@ export default function FilteredEventsPage({ filteredEvents, date, hasError }) {
     if (!filteredEvents || filteredEvents.length === 0) {
         return (
             <>
+                {pageHeadData}
                 <ErrorAlert>
                     <p>No events found</p>
                 </ErrorAlert>
@@ -50,6 +59,7 @@ export default function FilteredEventsPage({ filteredEvents, date, hasError }) {
 
     return (
         <>
+            {pageHeadData}
             <ResultsTitle date={formattedDate} />
             <EventList events={filteredEvents} />
         </>
