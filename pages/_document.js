@@ -8,7 +8,7 @@ class MyDocument extends Document {
 				<Head />
 				<body>
 					{/* can be used by React portals */}
-					<div class="overlays" />
+					<div className="overlays" />
 					<Main />
 					<NextScript />
 				</body>
