@@ -1,42 +1,35 @@
 import { useRef, useState } from 'react';
-import classes from './new-comment.module.css';
+import classes from './NewComment.module.css';
 
-function NewComment({ onAddComment }) {
+export default function NewComment({ onAddComment }) {
   const [isInvalid, setIsInvalid] = useState(false);
 
   const emailInputRef = useRef();
   const nameInputRef = useRef();
-  const commentInputRef = useRef();
+  const textInputRef = useRef();
 
-  function sendCommentHandler(event) {
-    event.preventDefault();
+  function sendCommentHandler(e) {
+    e.preventDefault();
 
-    const enteredEmail = emailInputRef.current.value;
-    const enteredName = nameInputRef.current.value;
-    const enteredComment = commentInputRef.current.value;
+    const email = emailInputRef.current.value;
+    const name = nameInputRef.current.value;
+    const text = textInputRef.current.value;
+    console.log(email, name, text)
 
     if (
-      !enteredEmail ||
-      enteredEmail.trim() === '' ||
-      !enteredEmail.includes('@') ||
-      !enteredName ||
-      enteredName.trim() === '' ||
-      !enteredComment ||
-      enteredComment.trim() === ''
+      !email || email.trim() === '' || !email.includes('@') ||
+      !name || name.trim() === '' ||
+      !text || text.trim() === ''
     ) {
       setIsInvalid(true);
       return;
     }
 
-    onAddComment({
-      email: enteredEmail,
-      name: enteredName,
-      text: enteredComment,
-    });
+    onAddComment({ email, name, text });
   }
 
   return (
-    <form className={classes.form}>
+    <form className={classes.form} onSubmit={sendCommentHandler}>
       <div className={classes.row}>
         <div className={classes.control}>
           <label htmlFor='email'>Your email</label>
@@ -48,13 +41,11 @@ function NewComment({ onAddComment }) {
         </div>
       </div>
       <div className={classes.control}>
-        <label htmlFor='comment'>Your comment</label>
-        <textarea id='comment' rows='5' ref={commentInputRef}></textarea>
+        <label htmlFor='text'>Your comment</label>
+        <textarea id='text' rows='5' ref={textInputRef}></textarea>
       </div>
       {isInvalid && <p>Please enter a valid email address and comment!</p>}
       <button>Submit</button>
     </form>
   );
 }
-
-export default NewComment;
